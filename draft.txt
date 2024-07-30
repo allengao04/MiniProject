@@ -1,0 +1,89 @@
+
+
+
+
+// void bubble_sort(DATA_T arr[], uint64_t length)
+// {
+//     for (uint64_t i = 0; i < length - 1; i++)
+//     {
+//         for (uint64_t j = i + 1; j < length; j++)
+//         {
+//             if (arr[i] > arr[j])
+//             {
+//                 swap(&arr[i], &arr[j]);
+//             }
+//         }
+//     }
+// }
+
+// void selectionSort(DATA_T arr[], uint64_t n)
+// {
+//     uint64_t i, j, min_idx;
+//     for (i = 0; i < n - 1; i++)
+//     {
+//         min_idx = i;
+//         for (j = i + 1; j < n; j++)
+//         {
+//             if (arr[j] < arr[min_idx])
+//                 min_idx = j;
+//         }
+//         if (min_idx != i)
+//             swap(&arr[min_idx], &arr[i]);
+//     }
+// }
+
+
+  // time_sort("MergeSort on random data", mergeSortWrapper, length, RANDOM);
+    // time_sort("InsertionSort on random data", insertionSort, length, RANDOM);
+    // time_sort("Bubble Sort on random data", bubble_sort, length, RANDOM);
+    // time_sort("SelectionSort on random data", selectionSort, length, RANDOM);
+
+    // Timing different sorting algorithms on sorted data
+    // printf("\n--- Sorted Data ---\n");
+    // time_sort("QuickSort on sorted data", quickSort, length, SORTED);
+    // time_sort("MergeSort on sorted data", mergeSort, length, SORTED);
+    // time_sort("InsertionSort on sorted data", insertionSort, length, SORTED);
+    // time_sort("Bubble Sort on sorted data", bubble_sort, length, SORTED);
+    // time_sort("SelectionSort on sorted data", selectionSort, length, SORTED);
+
+    // // Timing different sorting algorithms on reverse sorted data
+    // printf("\n--- Reverse Sorted Data ---\n");
+    // time_sort("QuickSort on reverse sorted data", quickSort, length, REVERSE_SORTED);
+    // time_sort("MergeSort on reverse sorted data", mergeSort, length, REVERSE_SORTED);
+    // time_sort("InsertionSort on reverse sorted data", insertionSort, length, REVERSE_SORTED);
+    // time_sort("Bubble Sort on reverse sorted data", bubble_sort, length, REVERSE_SORTED);
+    // time_sort("SelectionSort on reverse sorted data", selectionSort, length, REVERSE_SORTED);
+
+    // // Timing different sorting algorithms on almost sorted data
+    // printf("\n--- Almost Sorted Data ---\n");
+    // time_sort("QuickSort on almost sorted data", quickSortWrapper, length, ALMOST_SORTED);
+    // time_sort("MergeSort on almost sorted data", mergeSort, length, ALMOST_SORTED);
+    // time_sort("InsertionSort on almost sorted data", insertionSort, length, ALMOST_SORTED);
+    // time_sort("Bubble Sort on almost sorted data", bubble_sort, length, ALMOST_SORTED);
+    // time_sort("SelectionSort on almost sorted data", selectionSort, length, ALMOST_SORTED);
+
+
+  cashe performance 
+  branch prediction 
+
+
+g++ -Wall -Wpedantic -std=c++17 -march=haswell -O1 -g mini.cpp 
+perf stat -e branch-misses,branches,br_inst_retired.not_taken ./a.out 10000 
+perf record -e branch-misses:pp,branches:pp,br_inst_retired.not_taken:pp ./a.out 10000 
+perf report 
+perf annotate
+
+
+
+g++ -Wall -Wpedantic -std=c17 -march=haswell -O1 -g mini.cpp 
+perf stat -e L1-dcache-load-misses,L1-dcache-loads,LLC-load-misses,LLC-loads ./a.out 10000 1
+perf record -e L1-dcache-load-misses:pp,L1-dcache-loads:pp,LLC-load-misses:pp,LLC-loads:pp ./a.out 10000 1
+perf report
+perf annotate
+
+
+g++ -Wall -Wpedantic -std=c17 -march=haswell -O1 -g mini.cpp && 
+valgrind --tool=cachegrind ./a.out
+
+  
+  
